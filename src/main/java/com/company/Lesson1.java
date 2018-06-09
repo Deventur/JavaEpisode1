@@ -21,28 +21,45 @@ public class Lesson1 {
                 Matrix m1 = null;
                 Matrix m2 = null;
                 Matrix rm = null;
+                Integer linesNum = 0;
+                Integer columsNum = 0;
 
                 switch (Integer.parseInt(input)) {
                     case 1:
 
                         System.out.print("Input linesNum: ");
-                        Integer linesNum = Integer.parseInt(new Lesson1().inputString());
+                        linesNum = Integer.parseInt(new Lesson1().inputString());
 
                         System.out.print("Input columsNum: ");
-                        Integer columsNum = Integer.parseInt(new Lesson1().inputString());
+                        columsNum = Integer.parseInt(new Lesson1().inputString());
 
                         m1 = new Matrix(linesNum, columsNum);
                         m1.printMatrix();
                         System.out.println("Determinant: " + m1.getDeterminant());
                         break;
+
                     case 2:
-                        m1 = new Matrix(3, 4);
+
+                        System.out.print("Input linesNum: ");
+                        linesNum = Integer.parseInt(new Lesson1().inputString());
+
+                        System.out.print("Input columsNum: ");
+                        columsNum = Integer.parseInt(new Lesson1().inputString());
+
+                        m1 = new Matrix(linesNum, columsNum);
                         System.out.println("Input matrix1: ");
                         m1.inputMatrix();
                         System.out.println("==============");
                         m1.printMatrix();
                         System.out.println("==============");
-                        m2 = new Matrix(4, 3);
+
+                        System.out.print("Input linesNum: ");
+                        linesNum = Integer.parseInt(new Lesson1().inputString());
+
+                        System.out.print("Input columsNum: ");
+                        columsNum = Integer.parseInt(new Lesson1().inputString());
+
+                        m2 = new Matrix(linesNum, columsNum);
                         System.out.println("Input matrix2: ");
                         m2.inputMatrix();
                         System.out.println("==============");
@@ -54,13 +71,27 @@ public class Lesson1 {
                         rm.printMatrix();
                         break;
                     case 3:
-                        m1 = new Matrix(3, 3);
+
+                        System.out.print("Input linesNum: ");
+                        linesNum = Integer.parseInt(new Lesson1().inputString());
+
+                        System.out.print("Input columsNum: ");
+                        columsNum = Integer.parseInt(new Lesson1().inputString());
+
+                        m1 = new Matrix(linesNum, columsNum);
                         System.out.println("Input matrix1: ");
                         m1.inputMatrix();
                         System.out.println("==============");
                         m1.printMatrix();
                         System.out.println("==============");
-                        m2 = new Matrix(3, 3);
+
+                        System.out.print("Input linesNum: ");
+                        linesNum = Integer.parseInt(new Lesson1().inputString());
+
+                        System.out.print("Input columsNum: ");
+                        columsNum = Integer.parseInt(new Lesson1().inputString());
+
+                        m2 = new Matrix(linesNum, columsNum);
                         System.out.println("Input matrix2: ");
                         m2.inputMatrix();
                         System.out.println("==============");
