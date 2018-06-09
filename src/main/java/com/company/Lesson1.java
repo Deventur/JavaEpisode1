@@ -18,11 +18,11 @@ public class Lesson1 {
                     System.exit(0);
                 }
 
-                Matrix m1 = null;
-                Matrix m2 = null;
-                Matrix rm = null;
-                Integer linesNum = 0;
-                Integer columsNum = 0;
+                Matrix m1;
+                Matrix m2;
+                Matrix rm;
+                Integer linesNum;
+                Integer columsNum;
 
                 switch (Integer.parseInt(input)) {
                     case 1:
