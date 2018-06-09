@@ -44,6 +44,16 @@ class Matrix {
         return matrix.get(line).get(colum);
     }
 
+    /**
+     * Метод ввода элемента матрицы.
+     * Реализованы проверки на то, можно ли добавить элемент в указанную позицию.
+     * Если указанной строки не существует, и разница между максимальным индексом и переданным больше 1 - выход.
+     * Если в строке нет элемента с таким индексом, и разница между максимальным индексом и переданным больше 1 - выход.
+     * В противном случае либо заменяем значение, либо добавляем его.
+     * @param line - индекс позиции строки в которую надо добавить элемент.
+     * @param column - индекс позиции элемента в строке куда надо добавить элемент.
+     * @param value - значение элемента.
+     */
     private void inputElement(Integer line, Integer column, Double value) {
 
         if (matrix.size() - (line - 1) == 1) { //Если у нас всего на одну строку меньше
@@ -63,51 +73,76 @@ class Matrix {
         }
     }
 
+    /**
+     * Метод ввода матрицы. Матрица вводиться построчно.
+     */
     void inputMatrix() {
 
         try {
+
             Scanner scanner = new Scanner(System.in);
             for (int i = 0; i < linesNum; i++) {
+
                 System.out.print("Input " + i + " line: ");
                 for (int j = 0; j < columsNum; j++) {
                     Double a = scanner.nextDouble();//new Lesson1().inputDouble();
                     inputElement(i, j, a);
                 }
+
             }
+
         } catch (InputMismatchException e) {
             e.printStackTrace();
         }
 
     }
 
+    /**
+     * Обертка для метода вычисления определителья матрицы без параметров.
+     * Определьтель вычисляется от матрицы - члена класса
+     */
     private void calcDeterminant() {
+
         if (this.matrix.size() == 0) inputMatrix();
+
         if (!this.getColumsNum().equals(this.getLinesNum())) {
+
             throw new IllegalArgumentException("This matrix is not square!!!");
+
         } else if (this.getLinesNum() == 2)
-            determinant = calcDeterminantSecondOrder(this.getLinesNum(), this.getColumsNum(), this.matrix);
+
+            determinant = calcDeterminantSecondOrder(this.matrix);
+
         else
-            determinant = calcDeterminant(this.getLinesNum(), this.getColumsNum(), this.matrix);
+            determinant = calcDeterminant(this.matrix);
     }
 
-    private Double calcDeterminant(Integer linesNum, Integer columsNum, List<List<Double>> matrix) {
+    /**
+     * Рекурсивный метод вычисления определителя матрицы
+     * @param matrix матрица от которой надо вычислить определитель
+     * @return определьтель матрицы
+     */
+    private Double calcDeterminant(List<List<Double>> matrix) {
 
         Double det = 0.0;
 
-        if (!linesNum.equals(columsNum))
+        if ((matrix.size() == 0)
+                || (matrix.size() != matrix.get(0).size())) {
 
-            throw new IllegalArgumentException("This matrix is not square!!!");
+            throw new IllegalArgumentException("This matrix is not square!!!!");
 
-        else if (linesNum == 2)
+        }
+        else if (matrix.size() == 2)
 
-            det = calcDeterminantSecondOrder(linesNum, columsNum, matrix);
+            det = calcDeterminantSecondOrder(matrix);
 
         else
 
-            for (int i = 0; i < columsNum; i++) {
+            for (int i = 0; i < matrix.get(0).size(); i++) {
+
                 List<List<Double>> minore = createMinoreMatrix(0, i, matrix);
                 Double curElement = matrix.get(0).get(i);
-                Double inc = curElement * calcDeterminant(linesNum - 1, columsNum - 1, minore);
+                Double inc = curElement * calcDeterminant(minore);
                 det += i % 2 == 0 ? (-1) * inc : inc;
 
             }
@@ -115,15 +150,26 @@ class Matrix {
         return det;
     }
 
-    private Double calcDeterminantSecondOrder(Integer linesNum, Integer columsNum, List<List<Double>> matrix) {
+    /**
+     * Вычисление определителя матрицы второго порядка
+     * @param matrix - матрица от которой необходимо вычислить определитель
+     * @return определитель матрицы
+     */
+    private Double calcDeterminantSecondOrder(List<List<Double>> matrix) {
 
-        if (!linesNum.equals(columsNum) || columsNum != 2) {
-            return null;
+        if ((matrix.size() == 0)
+                || (matrix.size() != matrix.get(0).size())
+                || (matrix.get(0).size() != 2)) {
+            throw new IllegalArgumentException("Broken matrix!");
         }
 
         return matrix.get(0).get(0) * matrix.get(1).get(1) - matrix.get(0).get(1) * matrix.get(1).get(0);
     }
 
+    /**
+     * Getter детерминанта
+     * @return детерминант
+     */
     Double getDeterminant() {
 
         try {
@@ -137,7 +183,13 @@ class Matrix {
         return determinant;
     }
 
-
+    /**
+     * Создает матрицу-минор для переданной на вход.
+     * @param linesNum Номер строки на которой находится элемент по которому вычисляется минор матрицы
+     * @param columsNum Номер столбца на которой находится элемент по которому вычисляется минор матрицы
+     * @param matrix Матрица от которой надо вычислить минор
+     * @return Минор матрицы
+     */
     private List<List<Double>> createMinoreMatrix(Integer linesNum, Integer columsNum, List<List<Double>> matrix) {
 
         List<List<Double>> matrixMinore = new ArrayList<>();
@@ -155,6 +207,9 @@ class Matrix {
         return matrixMinore;
     }
 
+    /**
+     * Распечатывает в консоль матрицу из текущего объекта класса
+     */
     void printMatrix() {
         if (this.matrix.size() == 0) return;
 
@@ -166,6 +221,10 @@ class Matrix {
         }
     }
 
+    /**
+     * Распечатывает в консоль произвольную матрицу
+     * @param matrix - матрица которую необходимо распечатать.
+     */
     private void printMatrix(List<List<Double>> matrix) {
         if (matrix.size() == 0) return;
 
