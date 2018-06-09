@@ -1,6 +1,5 @@
 package com.company;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -25,23 +24,23 @@ class Matrix {
         matrix = new ArrayList<>();
     }
 
-    Integer getColumsNum() {
+    private Integer getColumsNum() {
         return columsNum;
     }
 
-    Integer getLinesNum() {
+    private Integer getLinesNum() {
         return linesNum;
     }
 
-    void setColumsNum(Integer columsNum) {
+    private void setColumsNum(Integer columsNum) {
         this.columsNum = columsNum;
     }
 
-    void setLinesNum(Integer linesNum) {
+    private void setLinesNum(Integer linesNum) {
         this.linesNum = linesNum;
     }
 
-    Double getElement(Integer line, Integer colum) {
+    private Double getElement(Integer line, Integer colum) {
         return matrix.get(line).get(colum);
     }
 
@@ -81,7 +80,7 @@ class Matrix {
 
     }
 
-    private Double calcDeterminant() {
+    private void calcDeterminant() {
         if (this.matrix.size() == 0) inputMatrix();
         if (!this.getColumsNum().equals(this.getLinesNum())) {
             throw new IllegalArgumentException("This matrix is not square!!!");
@@ -89,13 +88,16 @@ class Matrix {
             determinant = calcDeterminantSecondOrder(this.getLinesNum(), this.getColumsNum(), this.matrix);
         else
             determinant = calcDeterminant(this.getLinesNum(), this.getColumsNum(), this.matrix);
-        return determinant;
     }
 
     private Double calcDeterminant(Integer linesNum, Integer columsNum, List<List<Double>> matrix) {
+
         Double det = 0.0;
+
         if (!linesNum.equals(columsNum))
-            return null;
+
+            throw new IllegalArgumentException("This matrix is not square!!!");
+
         else if (linesNum == 2)
 
             det = calcDeterminantSecondOrder(linesNum, columsNum, matrix);
